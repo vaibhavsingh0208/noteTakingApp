@@ -38,6 +38,17 @@ const listNotes = () => {
   });
 };
 
+const readNotes = title => {
+  const notes = loadNotes();
+  const note = notes.find(eachNote => eachNote.title === title);
+  if (note) {
+    console.log(chalk.green(`Title: ${note.title}`));
+    console.log(chalk.blue(`body: ${note.body}`));
+  } else {
+    console.log(chalk.red.inverse(`No such '${title}' title available`));
+  }
+};
+
 const saveNotes = notes => {
   const dataJSON = JSON.stringify(notes);
   fs.writeFileSync('notes.json', dataJSON);
@@ -53,4 +64,10 @@ const loadNotes = () => {
   }
 };
 
-module.exports = { getNotes: getNotes, addNotes: addNotes, removeNotes: removeNotes, listNotes: listNotes };
+module.exports = {
+  getNotes,
+  addNotes,
+  removeNotes,
+  listNotes,
+  readNotes
+};
