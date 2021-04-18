@@ -1,0 +1,3 @@
+notes-app/node_modules/*
+notes-app/.DS_Store
+notes-app/package-lock.json
