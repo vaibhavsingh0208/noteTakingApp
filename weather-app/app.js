@@ -1,36 +1,23 @@
-const yargs = require('yargs');
-const getGeoLocation = require('./utils/location');
-const getWeatherData = require('./utils/weather');
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
 
-yargs.command({
-  command: 'getWeather',
-  describe: 'Getting weather info',
-  builder: {
-    address: {
-      describe: 'location',
-      demandOption: true,
-      type: 'string'
-    }
-  },
-  handler: argsv => {
-    getWeatherInfo(argsv.address);
-  }
-});
+const address = process.argv[2]
 
-const getWeatherInfo = address => {
-  getGeoLocation(address, (locationError, locationResponse) => {
-    if (locationError) {
-      console.log(locationError);
-    } else {
-      getWeatherData(locationResponse, (weatherError, weatherResponse) => {
-        if (weatherError) {
-          console.log(weatherError);
-        } else {
-          console.log(weatherResponse);
+if (!address) {
+    console.log('Please provide an address')
+} else {
+    geocode(address, (error, { latitude, longitude, location }) => {
+        if (error) {
+            return console.log(error)
         }
-      });
-    }
-  });
-};
 
-yargs.parse();
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                return console.log(error)
+            }
+
+            console.log(location)
+            console.log(forecastData)
+        })
+    })
+}

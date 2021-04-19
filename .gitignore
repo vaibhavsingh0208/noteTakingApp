@@ -5,3 +5,6 @@ notes-app/.DS_Store
 notes-app/package-lock.json
 weather-app/node_modules/.bin/sshpk-conv
 weather-app/node_modules/.bin/sshpk-sign
+.DS_Store
+web-server/.DS_Store
+web-server/public/.DS_Store
